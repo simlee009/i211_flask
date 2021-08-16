@@ -13,32 +13,38 @@ def index():
 def events(id=None):
     """Show an event if an ID is specified. Otherwise list all events."""
     if id:
-        # Once we get an id, we need to try to match it to an event in our list.
-        # Instead of using some fancy Python, just do a simple loop.
-        for event in events:
-            if event["id"] == id:
-                # Found the id!
-                return render_template('event.html', 
-                                       event=event, 
-                                       attendees=get_attendees(id))
-        print(f"No event found with id of {id}.")
+        if id in events.keys():
+            event = events[id]
+            return render_template('event.html', 
+                                    event=event, 
+                                    attendees=get_attendees(id))
+        else:
+            print(f"No event found with id of {id}.")
     # The default is to render the events list.
     return render_template('events.html', events=events)
 
 def read_csv(file_name):
-    """Helper function to read in CSV data as a list of dictionaries."""
-    results = []
+    """Helper function to read in CSV data as a dictionary of dictionaries."""
+    results = {}
     try:
         with open(file_name) as csv_file:
             reader = csv.DictReader(csv_file)
-            results = list(reader)
+            for result in reader:
+                results[result["id"]] = result
     except Exception as err:
         print(err)
     return results
 
 def get_attendees(event_id):
-    """Get all of the attendees for a given event id."""
-    return filter(lambda attendee: attendee["eventID"] == event_id, attendees)
+    """Get all of the attendees for a given event id.
+
+    This function could also be written by looping through the attendees list 
+    and building a sublist of the event attendees. That would be more in line
+    with the skill level we're shooting for, but the lambda function is just so
+    much easier...
+    """
+    return filter(lambda attendee: attendee["eventID"] == event_id, 
+                  attendees.values())
 
 # Read in the events and attendees at app start and keep it in memory, instead 
 #  of reading it every single time the events page loads.

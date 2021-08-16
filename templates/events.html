@@ -14,7 +14,7 @@
             </div>
         </div>
 
-    {% for event in events: %}
+    {% for event in events.values(): %}
         <div class="rvt-grid">
             <div class="rvt-grid__item-2-sm-up rvt-text-nobr">
                 {{event["time"]}}
