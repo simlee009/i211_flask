@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="rvt-ts-lg rvt-text-center">
+        Current Events
+    </div>
+    <div class="rvt-container rvt-container--center">
+        <div class="rvt-grid rvt-text-bold">
+            <div class="rvt-grid__item-2-sm-up">
+                Time
+            </div>
+            <div class="rvt-grid__item">
+                Event
+            </div>
+        </div>
+
+    {% for event in events: %}
+        <div class="rvt-grid">
+            <div class="rvt-grid__item-2-sm-up rvt-text-nobr">
+                {{event["time"]}}
+            </div>
+            <div class="rvt-grid__item">
+                {{event["name"]}}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
