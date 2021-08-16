@@ -1,5 +1,5 @@
-id,name,time
-1,First class!,2021-08-23 08:00
-2,Labor Day virtual party,2021-09-06 16:00
-3,Project 2 Office Hours,2021-10-14 13:00
-4,Fall Break Hike,2021-10-16 10:00
+id,name,time,host
+1,First class!,2021-08-23 08:00,Dan Pierz
+2,Labor Day virtual party,2021-09-06 16:00,Matt Hottell
+3,Project 2 Office Hours,2021-10-14 13:00,Matt Hottell
+4,Fall Break Hike,2021-10-16 10:00,Matt Hottell
