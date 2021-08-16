@@ -27,9 +27,13 @@ def events(id=None):
 
 def read_csv(file_name):
     """Helper function to read in CSV data as a list of dictionaries."""
-    with open(file_name) as csv_file:
-        reader = csv.DictReader(csv_file)
-        results = list(reader)
+    results = []
+    try:
+        with open(file_name) as csv_file:
+            reader = csv.DictReader(csv_file)
+            results = list(reader)
+    except Exception as err:
+        print(err)
     return results
 
 def get_attendees(event_id):
@@ -38,8 +42,8 @@ def get_attendees(event_id):
 
 # Read in the events and attendees at app start and keep it in memory, instead 
 #  of reading it every single time the events page loads.
-events = read_csv('events.csv')
-attendees = read_csv('attendees.csv')
+events = read_csv(app.root_path + '/events.csv')
+attendees = read_csv(app.root_path + '/attendees.csv')
 
 if __name__ == '__main__':
     app.run(debug = True)
