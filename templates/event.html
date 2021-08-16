@@ -28,4 +28,35 @@
             </div>
         </div>
     </div>
+    <div class="rvt-container">
+        <div class="rvt-grid">
+            <div class="rvt-grid__item rvt-ts-20 rvt-text-bold rvt-p-top-md">
+                Attendees
+            </div>
+        </div>
+        <div class="rvt-grid rvt-text-bold">
+            <div class="rvt-grid__item-2-sm-up">
+                Name
+            </div>
+            <div class="rvt-grid__item-2-sm-up">
+                Email
+            </div>
+            <div class="rvt-grid__item">
+                Comment
+            </div>
+        </div>
+    {% for attendee in attendees: %}
+        <div class="rvt-grid">
+            <div class="rvt-grid__item-2-sm-up">
+                {{ attendee['name'] }}
+            </div>
+            <div class="rvt-grid__item-2-sm-up">
+                {{ attendee['email'] }}
+            </div>
+            <div class="rvt-grid__item">
+                {{ attendee['comment'] }}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}

@@ -18,7 +18,9 @@ def events(id=None):
         for event in events:
             if event["id"] == id:
                 # Found the id!
-                return render_template('event.html', event=event)
+                return render_template('event.html', 
+                                       event=event, 
+                                       attendees=get_attendees(id))
         print(f"No event found with id of {id}.")
     # The default is to render the events list.
     return render_template('events.html', events=events)
@@ -30,9 +32,14 @@ def read_csv(file_name):
         results = list(reader)
     return results
 
-# Read in the events at app start and keep it in memory, instead of reading it
-#  every single time the events page loads.
+def get_attendees(event_id):
+    """Get all of the attendees for a given event id."""
+    return filter(lambda attendee: attendee["eventID"] == event_id, attendees)
+
+# Read in the events and attendees at app start and keep it in memory, instead 
+#  of reading it every single time the events page loads.
 events = read_csv('events.csv')
+attendees = read_csv('attendees.csv')
 
 if __name__ == '__main__':
     app.run(debug = True)
