@@ -25,7 +25,7 @@ def events(id=None):
 
 @app.route('/about')
 def about():
-    """About page for BThere."""
+    """About page for B.There."""
     return render_template('about.html')
 
 def read_csv(file_name):
