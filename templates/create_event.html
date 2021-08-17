@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="rvt-ts-lg rvt-text-center">
+        Create a new event!
+    </div>
+    <form method="post">
+        <div class="rvt-container rvt-container--center">
+            <div class="rvt-grid rvt-text-bold">
+                <div class="rvt-grid__item-4-sm-up">
+                    Time
+                </div>
+                <div class="rvt-grid__item">
+                    Event
+                </div>
+                <div class="rvt-grid__item">
+                    Host
+                </div>
+            </div>
+            <div class="rvt-grid">
+                <div class="rvt-grid__item-4-sm-up rvt-text-nobr">
+                    <input name="event_date" type="date">
+                    <input name="event_time" type="time">
+                </div>
+                <div class="rvt-grid__item">
+                    <input name="event_name" type="text">
+                </div>
+                <div class="rvt-grid__item">
+                    <input name="event_host" type="text">
+                </div>
+            </div>
+            <div class="rvt-grid">
+                <div class="rv-grid__item rvt-container--center">
+                    <button class="rvt-button rvt-button--full-width" type="submit">Add!</button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import csv
 
 app = Flask(__name__)
@@ -22,6 +22,32 @@ def events(id=None):
             print(f"No event found with id of {id}.")
     # The default is to render the events list.
     return render_template('events.html', events=events)
+
+@app.route('/create_event', methods=['GET', 'POST'])
+def create_event():
+    """
+    Create an event. If this function receives POST data, process it. If not,
+    render a form that allows the user to enter the data for a new event.
+    """
+    global events  # We might make changes to this global varibale.
+
+    if request.method == 'POST':
+        # This is definitely NOT the best way to genereate an ID.
+        id = str(len(events) + 1)
+        print(f"Using ID {id}.")
+        
+        # Get the new event info from the form data.
+        event = {}
+        event['id'] = id
+        event['name'] = request.form['event_name']
+        event['time'] = request.form['event_date'] + " " + request.form['event_time']
+        event['host'] = request.form['event_host']
+        events[id] = event
+
+        # Once the event has been added, take the user to that event.
+        return redirect(url_for('events', id=id))
+    else:
+        return render_template('create_event.html')
 
 @app.route('/about')
 def about():
