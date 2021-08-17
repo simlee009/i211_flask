@@ -23,6 +23,11 @@ def events(id=None):
     # The default is to render the events list.
     return render_template('events.html', events=events)
 
+@app.route('/about')
+def about():
+    """About page for BThere."""
+    return render_template('about.html')
+
 def read_csv(file_name):
     """Helper function to read in CSV data as a dictionary of dictionaries."""
     results = {}
