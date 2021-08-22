@@ -29,7 +29,7 @@ def events(id=None):
 
 @app.route('/create_event', methods=['GET', 'POST'])
 @app.route('/edit_event/<id>', methods=['GET', 'POST'])
-def set_event(id=0):
+def set_event(id=None):
     """Create or edit an event. If this function receives POST data, process it.
     If not, render a form that allows the user to enter the data for a new 
     event.
@@ -37,7 +37,7 @@ def set_event(id=0):
     global events  # We want to make changes to this global varibale.
 
     if request.method == 'POST':
-        if id == 0:  # If the event id is 0, that means create a new event.
+        if id is None:  # If there's no event ID, create a new event.
             # Generate a random UUID.
             id = str(uuid.uuid4())
         print(f"Event ID {id}.")
@@ -56,16 +56,16 @@ def set_event(id=0):
         # Once the event has been added, take the user to that event.
         return redirect(url_for('events', id=id))
     else:
-        if id == 0:
+        if id is None:
             return render_template('edit_event.html')
         else:
             return render_template('edit_event.html', event=events[id])
 
 @app.route('/delete_event/<id>', methods=['GET', 'POST'])
-def delete_event(id=0):
+def delete_event(id=None):
     global events
     global attendees
-    if id in events:
+    if id and id in events:
         del events[id]
         # Gotta delete attendees too.
         event_attendees = get_attendees(id)
