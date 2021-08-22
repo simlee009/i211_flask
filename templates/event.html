@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="rvt-ts-lg rvt-text-center">
-        Now showing event ID: {{event["id"]}}
+        Now showing event ID: {{event['id']}}
     </div>
     <div class="rvt-container rvt-container--center">
         <div class="rvt-grid rvt-text-bold">
@@ -15,6 +15,9 @@
             <div class="rvt-grid__item">
                 Host
             </div>
+            <div class="rvt-grid__item">
+
+            </div>
         </div>
         <div class="rvt-grid">
             <div class="rvt-grid__item-2-sm-up rvt-text-nobr">
@@ -25,6 +28,13 @@
             </div>
             <div class="rvt-grid__item">
                 {{event["host"]}}
+            </div>
+            <div class='rvt-grid__item'>
+                <div class="rvt-button-group rvt-button-group--right">
+                    <form>
+                        <button formaction="{{url_for('set_event', id=event['id'])}}" type="submit" class="rvt-button">Edit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

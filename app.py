@@ -27,19 +27,21 @@ def events(id=None):
     return render_template('events.html', events=events)
 
 @app.route('/create_event', methods=['GET', 'POST'])
-def create_event():
-    """
-    Create an event. If this function receives POST data, process it. If not,
-    render a form that allows the user to enter the data for a new event.
+@app.route('/edit_event/<id>', methods=['GET', 'POST'])
+def set_event(id=0):
+    """Create or edit an event. If this function receives POST data, process it.
+    If not, render a form that allows the user to enter the data for a new 
+    event.
     """
     global events  # We want to make changes to this global varibale.
 
     if request.method == 'POST':
-        # This is definitely NOT the best way to genereate an ID.
-        id = str(len(events) + 1)
-        print(f"Using ID {id}.")
+        if id == 0:  # If the event id is 0, that means create a new event.
+            # This is definitely NOT the best way to genereate an ID.
+            id = str(len(events) + 1)
+        print(f"Event ID {id}.")
         
-        # Get the new event info from the form data.
+        # Generate the event info from the form data.
         event = {}
         event['id'] = id
         event['name'] = request.form['event_name']
@@ -53,7 +55,10 @@ def create_event():
         # Once the event has been added, take the user to that event.
         return redirect(url_for('events', id=id))
     else:
-        return render_template('edit_event.html')
+        if id == 0:
+            return render_template('edit_event.html')
+        else:
+            return render_template('edit_event.html', event=events[id])
 
 @app.route('/about')
 def about():
@@ -104,8 +109,8 @@ def get_attendees(event_id):
     with the skill level we're shooting for, but the lambda function is just so
     much easier...
     """
-    return filter(lambda attendee: attendee["eventID"] == event_id, 
-                  attendees.values())
+    return list(filter(lambda attendee: attendee["eventID"] == event_id, 
+                       attendees.values()))
 
 # Read in the events and attendees at app start and keep it in memory, instead 
 #  of reading it every single time the events page loads.
