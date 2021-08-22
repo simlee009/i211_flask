@@ -72,6 +72,7 @@
             </div>
             <div class="rvt-grid__item">
                 <a class="rvt-button rvt-button--small" href="{{ url_for('set_attendee', event_id=event['id'], attendee_id=attendee['id']) }}">Edit</a>
+                <a class="rvt-button rvt-button--danger rvt-button--small" href="{{ url_for('delete_attendee', event_id=event['id'], attendee_id=attendee['id']) }}">Delete</a>
             </div>
         </div>
     {% endfor %}

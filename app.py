@@ -88,6 +88,20 @@ def set_attendee(event_id, attendee_id=None):
             else:
                 return render_template('edit_attendee.html', event_id=event_id, attendee=attendees[attendee_id])
 
+@app.route('/events/<event_id>/attendees/<attendee_id>/delete')
+def delete_attendee(event_id, attendee_id):
+    global attendees
+    if event_id is None or event_id not in events.keys():
+        print('Cannot add or edit attendees to a non-existent event!')
+        return redirect(url_for('index'))
+    elif attendee_id is None or attendee_id not in attendees.keys():
+        print('Cannot delete a non-existent attendee!')
+        return redirect(url_for('index'))
+    else:
+        del attendees[attendee_id]
+        write_csv(PATH_ATTENDEES, attendees)
+        return redirect(url_for('events', id=event_id))
+
 @app.route('/delete_event/<id>', methods=['GET', 'POST'])
 def delete_event(id=None):
     global events
