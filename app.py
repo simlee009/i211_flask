@@ -53,7 +53,7 @@ def create_event():
         # Once the event has been added, take the user to that event.
         return redirect(url_for('events', id=id))
     else:
-        return render_template('create_event.html')
+        return render_template('edit_event.html')
 
 @app.route('/about')
 def about():
