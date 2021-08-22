@@ -1,12 +1,12 @@
 id,eventID,name,email,comment
-1,1,Matt Hottell,mhottell@iu.edu,
-2,1,Erika Lee,ebigalee@iu.edu,
-3,2,Matt Hottell,mhottell@iu.edu,Will be there early to set up!
-4,3,Matt Hottell,mhottell@iu.edu,
-5,2,Simon Lee,simlee@iu.edu,
-6,2,Erika Lee,ebigalee@iu.edu,I'll be late!
-7,3,Dan Pierz,dpierz@indiana.edu,
-8,2,Logan Paul,lopaul@iu.edu,
-9,1,Dan Pierz,dpierz@indiana.edu,
-10,2,Katie Siek,,See you all on Zoom!
-11,4,Matt Hottell,mhottell@iu.edu
+ea807c42-82d2-4057-90e3-30c124c332ca,b7208249-c770-4efb-b879-e0fe26215242,Matt Hottell,mhottell@iu.edu,
+23c05386-3fce-46fc-8fce-0759028b1cd5,b7208249-c770-4efb-b879-e0fe26215242,Erika Lee,ebigalee@iu.edu,
+d67d7083-d918-4ac6-86c2-89da3b1cb849,b7208249-c770-4efb-b879-e0fe26215242,Dan Pierz,dpierz@indiana.edu,
+81791e10-665a-4c93-b725-37cd3e4ac96a,5cb7d37e-9c74-4f50-af0d-554225f29d5c,Matt Hottell,mhottell@iu.edu,Will be there early to set up!
+7416c0b9-3532-4b98-a081-a8596c095480,5cb7d37e-9c74-4f50-af0d-554225f29d5c,Simon Lee,simlee@iu.edu,
+2eb02857-60c4-47e3-90e4-5dc6f6aa1d17,5cb7d37e-9c74-4f50-af0d-554225f29d5c,Erika Lee,ebigalee@iu.edu,I'll be late!
+92fbc312-5534-4500-8d91-294195efc930,5cb7d37e-9c74-4f50-af0d-554225f29d5c,Logan Paul,lopaul@iu.edu,
+7269d6e4-ed00-4035-8382-5aedb1ce80de,5cb7d37e-9c74-4f50-af0d-554225f29d5c,Katie Siek,,See you all on Zoom!
+0954cb33-e4ba-48e4-b9b1-fa954d1c7a15,5747503a-3911-483f-a6a4-1fa6f53353ac,Matt Hottell,mhottell@iu.edu,
+e7e76fec-074c-44a5-8f42-5394c0f9a8a8,5747503a-3911-483f-a6a4-1fa6f53353ac,Dan Pierz,dpierz@indiana.edu,
+37b7c457-193c-4f82-907f-d17592dc2ecc,5a8d4178-bd03-426f-98f4-1855778a1189,Matt Hottell,mhottell@iu.edu,
