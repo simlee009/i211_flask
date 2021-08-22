@@ -7,7 +7,7 @@
         {% set event_name = event['name'] %}
         {% set event_host = event['host'] %}
         {% set event_date, event_time = event['time'].split(' ') %}
-        Edit event (ID {{event['id']}})
+        Edit event (ID {{ event['id'] }})
     {% else: %}
         {% set event_id = 0 %}
         {% set event_name = '' %}
@@ -31,16 +31,16 @@
                 </div>
             </div>
             <div class="rvt-grid">
-                <input name="event_id" type="hidden" value="{{event_id}}">
+                <input name="event_id" type="hidden" value="{{ event_id }}">
                 <div class="rvt-grid__item-4-sm-up rvt-text-nobr">
-                    <input name="event_date" type="date" value="{{event_date}}">
-                    <input name="event_time" type="time" value="{{event_time}}">
+                    <input name="event_date" type="date" value="{{ event_date }}">
+                    <input name="event_time" type="time" value="{{ event_time }}">
                 </div>
                 <div class="rvt-grid__item">
-                    <input name="event_name" type="text" value="{{event_name}}">
+                    <input name="event_name" type="text" value="{{ event_name }}">
                 </div>
                 <div class="rvt-grid__item">
-                    <input name="event_host" type="text" value="{{event_host}}">
+                    <input name="event_host" type="text" value="{{ event_host }}">
                 </div>
             </div>
             <div class="rvt-grid">

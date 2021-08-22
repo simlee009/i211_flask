@@ -10,7 +10,7 @@
             {% set attendee_name = attendee['name'] %}
             {% set attendee_email = attendee['email'] %}
             {% set attendee_comment = attendee['comment'] %}
-            Edit attendee (ID {{attendee['id']}})
+            Edit attendee (ID {{ attendee['id'] }})
         {% else %}
             {% set attendee_id = 0 %}
             {% set attendee_name = '' %}
@@ -33,22 +33,22 @@
                     </div>
                 </div>
                 <div class="rvt-grid">
-                    <input name="attendee_id" type="hidden" value="{{attendee_id}}">
-                    <input name="event_id" type="hidden" value="{{event_id}}">
+                    <input name="attendee_id" type="hidden" value="{{ attendee_id }}">
+                    <input name="event_id" type="hidden" value="{{ event_id }}">
                     <div class="rvt-grid__item-4-sm-up rvt-text-nobr">
-                        <input name="attendee_name" type="text" value="{{attendee_name}}">
+                        <input name="attendee_name" type="text" value="{{ attendee_name }}">
                     </div>
                     <div class="rvt-grid__item">
-                        <input name="attendee_email" type="email" value="{{attendee_email}}">
+                        <input name="attendee_email" type="email" value="{{ attendee_email }}">
                     </div>
                     <div class="rvt-grid__item">
-                        <input name="attendee_comment" type="text" value="{{attendee_comment}}">
+                        <input name="attendee_comment" type="text" value="{{ attendee_comment }}">
                     </div>
                 </div>
                 <div class="rvt-grid">
                     <div class="rv-grid__item rvt-container--center">
                         <button class="rvt-button" type="submit">Submit</button>
-                        <a href="{{url_for('events', event_id=event_id)}}" class="rvt-button rvt-button--danger-secondary">Cancel</a>
+                        <a href="{{ url_for('events', event_id=event_id) }}" class="rvt-button rvt-button--danger-secondary">Cancel</a>
                     </div>
                 </div>
             </div>

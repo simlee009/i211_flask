@@ -5,7 +5,7 @@
         Current Events
     </div>
     <div class="rvt-text-center">
-        Create a <a href="{{url_for('set_event')}}">new event</a>!
+        Create a <a href="{{ url_for('set_event') }}">new event</a>!
     </div>
     <div class="rvt-container rvt-container--center">
         <div class="rvt-grid rvt-text-bold">
@@ -20,10 +20,10 @@
     {% for event in events.values(): %}
         <div class="rvt-grid">
             <div class="rvt-grid__item-2-sm-up rvt-text-nobr">
-                {{event["time"]}}
+                {{ event["time"] }}
             </div>
             <div class="rvt-grid__item">
-                <a href="{{url_for('events', event_id=event['id'])}}">{{event["name"]}}</a>
+                <a href="{{ url_for('events', event_id=event['id']) }}">{{ event["name"] }}</a>
             </div>
         </div>
     {% endfor %}
