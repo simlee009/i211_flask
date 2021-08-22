@@ -127,31 +127,6 @@ def get_attendees(event_id):
     return list(filter(lambda attendee: attendee["eventID"] == event_id, 
                        attendees.values()))
 
-@app.route('/convert_events')
-def convert_events():
-    """Helper function to convert sequential numeric event and attendee IDs into
-    GUIDs. This is a temporary function that should only be needed once.
-    """
-    global events
-    global attendees
-    event_ids = list(events.keys())
-    for event_id in event_ids:
-        new_event_id = str(uuid.uuid4())
-        events[new_event_id] = events[event_id]
-        events[new_event_id]['id'] = new_event_id
-        del events[event_id]
-        event_attendees = get_attendees(event_id)
-        for event_attendee in event_attendees:
-            attendee_id = event_attendee['id']
-            new_attendee_id = str(uuid.uuid4())
-            attendees[new_attendee_id] = attendees[attendee_id]
-            attendees[new_attendee_id]['id'] = new_attendee_id
-            attendees[new_attendee_id]['eventID'] = new_event_id
-            del attendees[attendee_id]
-    write_csv(PATH_EVENTS, events)
-    write_csv(PATH_ATTENDEES, attendees)
-    return redirect(url_for('index'))
-
 # Read in the events and attendees at app start and keep it in memory, instead 
 #  of reading it every single time the events page loads.
 events = read_csv(PATH_EVENTS)
