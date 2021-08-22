@@ -55,6 +55,9 @@
             <div class="rvt-grid__item">
                 Comment
             </div>
+            <div class="rvt-grid__item">
+
+            </div>
         </div>
     {% for attendee in attendees: %}
         <div class="rvt-grid">
@@ -67,7 +70,15 @@
             <div class="rvt-grid__item">
                 {{ attendee['comment'] }}
             </div>
+            <div class="rvt-grid__item">
+                <a class="rvt-button rvt-button--small" href="{{ url_for('set_attendee', event_id=event['id'], attendee_id=attendee['id']) }}">Edit</a>
+            </div>
         </div>
     {% endfor %}
+        <div class="rvt-grid">
+            <div class="rvt-grid__item">
+                <a class="rvt-button" href="{{ url_for('set_attendee', event_id=event['id']) }}">Add an attendee</a>
+            </div>
+        </div>
     </div>
 {% endblock %}
