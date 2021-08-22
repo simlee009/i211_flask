@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import uuid
 import csv
 
 app = Flask(__name__)
@@ -37,8 +38,8 @@ def set_event(id=0):
 
     if request.method == 'POST':
         if id == 0:  # If the event id is 0, that means create a new event.
-            # This is definitely NOT the best way to genereate an ID.
-            id = str(len(events) + 1)
+            # Generate a random UUID.
+            id = str(uuid.uuid4())
         print(f"Event ID {id}.")
         
         # Generate the event info from the form data.
