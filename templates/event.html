@@ -33,6 +33,7 @@
                 <div class="rvt-button-group rvt-button-group--right">
                     <form>
                         <button formaction="{{url_for('set_event', id=event['id'])}}" type="submit" class="rvt-button">Edit</button>
+                        <button formaction="{{url_for('delete_event', id=event['id'])}}" type="submit" class="rvt-button rvt-button--danger">Delete</button>
                     </form>
                 </div>
             </div>

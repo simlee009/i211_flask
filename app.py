@@ -60,6 +60,20 @@ def set_event(id=0):
         else:
             return render_template('edit_event.html', event=events[id])
 
+@app.route('/delete_event/<id>', methods=['GET', 'POST'])
+def delete_event(id=0):
+    global events
+    global attendees
+    if id in events:
+        del events[id]
+        # Gotta delete attendees too.
+        event_attendees = get_attendees(id)
+        for event_attendee in event_attendees:
+            del attendees[event_attendee['id']]
+        write_csv(PATH_EVENTS, events)
+        write_csv(PATH_ATTENDEES, attendees)
+    return redirect(url_for('events'))
+
 @app.route('/about')
 def about():
     """About page for B.There."""
