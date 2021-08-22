@@ -13,23 +13,23 @@ def index():
     return render_template('index.html')
 
 @app.route('/events/')  # Using a trailing slash allows Flask to handle both "/event" and "/event/".
-@app.route('/events/<id>')
-def events(id=None):
+@app.route('/events/<event_id>/')
+def events(event_id=None):
     """Show an event if an ID is specified. Otherwise list all events."""
-    if id:
-        if id in events.keys():
-            event = events[id]
+    if event_id:
+        if event_id in events.keys():
+            event = events[event_id]
             return render_template('event.html', 
                                     event=event, 
-                                    attendees=get_attendees(id))
+                                    attendees=get_attendees(event_id))
         else:
-            print(f"No event found with id of {id}.")
+            print(f"No event found with id of {event_id}.")
     # The default is to render the events list.
     return render_template('events.html', events=events)
 
-@app.route('/create_event', methods=['GET', 'POST'])
-@app.route('/edit_event/<id>', methods=['GET', 'POST'])
-def set_event(id=None):
+@app.route('/events/create', methods=['GET', 'POST'])
+@app.route('/events/<event_id>/edit', methods=['GET', 'POST'])
+def set_event(event_id=None):
     """Create or edit an event. If this function receives POST data, process it.
     If not, render a form that allows the user to enter the data for a new 
     event.
@@ -37,29 +37,29 @@ def set_event(id=None):
     global events  # We want to make changes to this global varibale.
 
     if request.method == 'POST':
-        if id is None:  # If there's no event ID, create a new event.
+        if event_id is None:  # If there's no event ID, create a new event.
             # Generate a random UUID.
-            id = str(uuid.uuid4())
-        print(f"Event ID {id}.")
+            event_id = str(uuid.uuid4())
+        print(f"Event ID {event_id}.")
         
         # Generate the event info from the form data.
         event = {}
-        event['id'] = id
+        event['id'] = event_id
         event['name'] = request.form['event_name']
         event['time'] = request.form['event_date'] + " " + request.form['event_time']
         event['host'] = request.form['event_host']
-        events[id] = event
+        events[event_id] = event
 
         # Save this data back out to the CSV file.
         write_csv(PATH_EVENTS, events)
 
         # Once the event has been added, take the user to that event.
-        return redirect(url_for('events', id=id))
+        return redirect(url_for('events', id=event_id))
     else:
-        if id is None:
+        if event_id is None:
             return render_template('edit_event.html')
         else:
-            return render_template('edit_event.html', event=events[id])
+            return render_template('edit_event.html', event=events[event_id])
 
 @app.route('/events/<event_id>/attendees/add', methods=['GET', 'POST'])
 @app.route('/events/<event_id>/attendees/<attendee_id>/edit', methods=['GET', 'POST'])
@@ -81,7 +81,7 @@ def set_attendee(event_id, attendee_id=None):
 
             attendees[attendee_id] = attendee
             write_csv(PATH_ATTENDEES, attendees)
-            return redirect(url_for('events', id=event_id))
+            return redirect(url_for('events', event_id=event_id))
         else:
             if attendee_id is None:
                 return render_template('edit_attendee.html', event_id=event_id)
@@ -100,16 +100,16 @@ def delete_attendee(event_id, attendee_id):
     else:
         del attendees[attendee_id]
         write_csv(PATH_ATTENDEES, attendees)
-        return redirect(url_for('events', id=event_id))
+        return redirect(url_for('events', event_id=event_id))
 
-@app.route('/delete_event/<id>', methods=['GET', 'POST'])
-def delete_event(id=None):
+@app.route('/events/<event_id>/delete', methods=['GET', 'POST'])
+def delete_event(event_id=None):
     global events
     global attendees
-    if id and id in events:
-        del events[id]
+    if event_id and event_id in events:
+        del events[event_id]
         # Gotta delete attendees too.
-        event_attendees = get_attendees(id)
+        event_attendees = get_attendees(event_id)
         for event_attendee in event_attendees:
             del attendees[event_attendee['id']]
         write_csv(PATH_EVENTS, events)

@@ -23,7 +23,7 @@
                 {{event["time"]}}
             </div>
             <div class="rvt-grid__item">
-                <a href="{{url_for('events', id=event['id'])}}">{{event["name"]}}</a>
+                <a href="{{url_for('events', event_id=event['id'])}}">{{event["name"]}}</a>
             </div>
         </div>
     {% endfor %}
