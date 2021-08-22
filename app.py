@@ -3,6 +3,9 @@ import csv
 
 app = Flask(__name__)
 
+PATH_EVENTS = app.root_path + '/events.csv'
+PATH_ATTENDEES = app.root_path + '/attendees.csv'
+
 @app.route('/')
 def index():
     """Show the home page."""
@@ -79,8 +82,8 @@ def get_attendees(event_id):
 
 # Read in the events and attendees at app start and keep it in memory, instead 
 #  of reading it every single time the events page loads.
-events = read_csv(app.root_path + '/events.csv')
-attendees = read_csv(app.root_path + '/attendees.csv')
+events = read_csv(PATH_EVENTS)
+attendees = read_csv(PATH_ATTENDEES)
 
 if __name__ == '__main__':
     app.run(debug = True)
