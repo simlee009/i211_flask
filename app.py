@@ -54,7 +54,7 @@ def set_event(event_id=None):
         write_csv(PATH_EVENTS, events)
 
         # Once the event has been added, take the user to that event.
-        return redirect(url_for('events', id=event_id))
+        return redirect(url_for('events', event_id=event_id))
     else:
         if event_id is None:
             return render_template('edit_event.html')
