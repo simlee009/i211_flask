@@ -32,7 +32,7 @@ def create_event():
     Create an event. If this function receives POST data, process it. If not,
     render a form that allows the user to enter the data for a new event.
     """
-    global events  # We might make changes to this global varibale.
+    global events  # We want to make changes to this global varibale.
 
     if request.method == 'POST':
         # This is definitely NOT the best way to genereate an ID.
@@ -46,6 +46,9 @@ def create_event():
         event['time'] = request.form['event_date'] + " " + request.form['event_time']
         event['host'] = request.form['event_host']
         events[id] = event
+
+        # Save this data back out to the CSV file.
+        write_csv(PATH_EVENTS, events)
 
         # Once the event has been added, take the user to that event.
         return redirect(url_for('events', id=id))
@@ -68,6 +71,30 @@ def read_csv(file_name):
     except Exception as err:
         print(err)
     return results
+
+def write_csv(file_name, data_dict):
+    """Helper function to write data back out to a CSV."""
+    try:
+        if data_dict and len(data_dict) > 0:
+            # Make sure we got a valid dictionary as the data. Then use the 
+            #  first row to figure out what keys to use as the field name.
+            #  Students could probably just hard-code the field names as a 
+            #  parameter instead.
+            rows = list(data_dict.values())
+            first_row = rows[0]
+            if first_row and len(first_row) > 0:
+                field_names = list(first_row.keys())
+                with open(file_name, mode='w', newline='') as csv_file:
+                    writer = csv.DictWriter(csv_file, fieldnames=field_names)
+                    writer.writeheader()
+                    for row in rows:
+                        writer.writerow(row)
+                print('Data saved!')
+                return # Return here if we successfully saved the file.
+            print('Could not determine field names from first row.')
+        print('Invalid data. Changes not saved.')
+    except Exception as err:
+        print(err)
 
 def get_attendees(event_id):
     """Get all of the attendees for a given event id.
