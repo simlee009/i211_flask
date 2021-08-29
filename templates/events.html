@@ -5,7 +5,7 @@
 
 {% for event in events: %}
 <li>
-    {{ event.date }} - {{ event.name }}, hosted by {{ event.host }}
+    {{ event.date }} - <a href="{{ url_for('event', event_id=events.index(event)) }}">{{ event.name }}</a>
 </li>
 {% endfor %}
 
