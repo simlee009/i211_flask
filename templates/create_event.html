@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST">
+    <label for="name">Event Name:</label> <input type="text" id="name" name="name" />
+    <label for="date">Date:</label> <input type="date" id="date" name="date" />
+    <label for="host">Host:</label> <input type="text" id="host" name="host" />
+    <input type="submit" value="Save" />
+    <input type="reset" value="Reset" />
+</form>
+
+<div>Back to <a href="{{ url_for('list_events') }}">events</a></div>
+{% endblock %}
