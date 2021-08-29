@@ -21,7 +21,7 @@ def view_event(event_id=None):
     if event_id:
         event_id = int(event_id)
         events = get_events()
-        return render_template('event.html', event=events[event_id])
+        return render_template('event.html', event_id=event_id, event=events[event_id])
     else:
         return redirect(url_for('list_events'))
 
@@ -45,6 +45,15 @@ def create_event():
         return redirect(url_for('list_events'))
     else:
         return render_template('create_event.html')
+
+@app.route('/events/<event_id>/delete')
+def delete_event(event_id=None):
+    if event_id:
+        event_id = int(event_id)
+        events = get_events()
+        del events[event_id]
+        set_events(events)
+    return redirect(url_for('list_events'))
 
 def get_events():
     results = []
