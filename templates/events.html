@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Current Events</h2>
+
+{% for event in events: %}
+<li>
+    {{ event.date }} - {{ event.name }}, hosted by {{ event.host }}
+</li>
+{% endfor %}
+
+{% endblock %}
