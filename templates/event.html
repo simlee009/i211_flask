@@ -4,10 +4,20 @@
 
 <h2>{{ event['name'] }}</h2>
 
-<div>Date: {{ event['date'] }}</div>
-<div>Host: {{ event['host'] }}</div>
+<div class="container">
+    <div class="row">
+        <div class="col-1"><strong>Date:</strong></div>
+        <div class="col">{{ event['date'] }}</div>
+        </div>
+    <div class="row">
+        <div class="col-1"><strong>Host:</strong></div>
+        <div class="col">{{ event['host'] }}</div>
+    </div>
+</div>
 
-<div><a href="{{ url_for('delete_event', event_id=event_id) }}">Delete</a> this event.</div>
+<div class="my-2 text-center">
+    <a href="{{ url_for('delete_event', event_id=event_id) }}" class="btn btn-danger">Delete this event</a>
+</div>
 <div>Back to <a href="{{ url_for('list_events') }}">events</a></div>
 
 {% endblock %}

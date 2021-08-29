@@ -1,14 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<form method="POST">
-    <label for="name">Event Name:</label> <input type="text" id="name" name="name" />
-    <label for="date">Date:</label> <input type="date" id="date" name="date" />
-    <label for="host">Host:</label> <input type="text" id="host" name="host" />
-    <input type="submit" value="Save" />
-    <input type="reset" value="Reset" />
+<h2>Create a new event</h2>
+<form method="POST" name="create_event" class="container">
+    <div class="row my-2">
+        <div class="col-md-2 text-end">
+            <label for="date">Date:</label>
+        </div>
+        <div class="col">
+            <input type="date" id="date" name="date" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-2 text-nowrap text-end">
+            <label for="name">Event Name:</label>
+        </div>
+        <div class="col">
+            <input type="text" id="name" name="name" size="64" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-2 text-end">
+            <label for="host">Host:</label>
+        </div>
+        <div class="col">
+            <input type="text" id="host" name="host" size="64" />
+        </div>
+    </div>
+    <div class="my-2 text-center">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <input type="reset" value="Reset" class="btn btn-secondary" />
+    </div>
 </form>
 
-<div>Back to <a href="{{ url_for('list_events') }}">events</a></div>
+<div class="m-2 text-center">Cancel and <a href="{{ url_for('list_events') }}">return to events</a></div>
 {% endblock %}
