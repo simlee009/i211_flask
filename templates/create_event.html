@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Create a new event</h2>
-<form method="POST" name="create_event" class="container">
+<form method="POST" name="create_event" class="container" action="{{ url_for('create_event') }}">
     <div class="row my-2">
         <div class="col-md-2 text-end">
             <label for="date">Date:</label>
