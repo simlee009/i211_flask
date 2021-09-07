@@ -1,8 +1,17 @@
 from flask import Flask, render_template, redirect, url_for, request
 
-import csv  # Used for reading and writing event data via csv.
-
+# "app" needs to be defined first so that the database can read its config info.
 app = Flask(__name__)
+
+# Set up config keys for database access.
+# First load default values, then load the actual values from config.py.
+# The actual values in the config file, such as the SECRET_KEY and DB_PASS 
+#  should NEVER be included in source control, especially in public repos.
+app.config.from_pyfile('config_defaults.py')
+if exists('config.py'):
+    app.config.from_pyfile('config.py')
+
+import csv  # Used for reading and writing event data via csv.
 
 EVENTS_PATH = app.root_path + '/events.csv'
 EVENTS_KEYS = ['name', 'date', 'host']
