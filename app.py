@@ -8,13 +8,11 @@ app = Flask(__name__)
 # First load default values, then load the actual values from config.py.
 # The actual values in the config file, such as the SECRET_KEY and DB_PASS 
 #  should NEVER be included in source control, especially in public repos.
-app.config.from_pyfile('config_defaults.py')
-if exists('config.py'):
-    app.config.from_pyfile('config.py')
+app.config.from_pyfile(app.root_path + '/config_defaults.py')
+if exists(app.root_path + '/config.py'):
+    app.config.from_pyfile(app.root_path + '/config.py')
 
 import database
-
-import csv  # Used for reading and writing event data via csv.
 
 EVENTS_PATH = app.root_path + '/events.csv'
 EVENTS_KEYS = ['name', 'date', 'host']
@@ -33,7 +31,6 @@ def view_event(event_id=None):
     if event_id:
         event_id = int(event_id)
         event = database.get_event(event_id)
-        print(event)
         return render_template('event.html', event=event)
     else:
         return redirect(url_for('list_events'))
