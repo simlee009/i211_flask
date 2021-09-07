@@ -12,6 +12,10 @@
 
 from wsgiref.handlers import CGIHandler
 
+# This line adds the i22_flask folder to the path so that imports will work.
+import sys
+sys.path.append('i211_flask')
+
 # Update the following line or make sure you set up your files and folders to 
 #  match: from [Flask folder/Git repo] import [main py file, ie app.py]
 from i211_flask import app
