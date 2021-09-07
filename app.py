@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
+from os.path import exists
 
 # "app" needs to be defined first so that the database can read its config info.
 app = Flask(__name__)
@@ -10,6 +11,8 @@ app = Flask(__name__)
 app.config.from_pyfile('config_defaults.py')
 if exists('config.py'):
     app.config.from_pyfile('config.py')
+
+import database
 
 import csv  # Used for reading and writing event data via csv.
 
