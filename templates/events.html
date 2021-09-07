@@ -11,7 +11,7 @@
 {% for event in events: %}
     <li class="row pb-sm-3 pb-md-0">
         <div class="col-md-2 text-nowrap">{{ event['date'] }}</div>
-        <div class="col"><a href="{{ url_for('view_event', event_id=events.index(event)) }}">{{ event.name }}</a></div>
+        <div class="col"><a href="{{ url_for('view_event', event_id=event['id']) }}">{{ event['name'] }}</a></div>
     </li>
 {% endfor %}
 </ul>

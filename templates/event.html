@@ -16,7 +16,7 @@
 </div>
 
 <div class="my-2 text-center">
-    <a href="{{ url_for('delete_event', event_id=event_id) }}" class="btn btn-danger">Delete this event</a>
+    <a href="{{ url_for('delete_event', event_id=event['id']) }}" class="btn btn-danger">Delete this event</a>
 </div>
 
 {% endblock %}

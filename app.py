@@ -25,33 +25,26 @@ def index():
 
 @app.route('/events/')
 def list_events():
-    events = get_events()
+    events = database.get_events()
     return render_template('events.html', events=events)
 
 @app.route('/events/<event_id>/')
 def view_event(event_id=None):
     if event_id:
         event_id = int(event_id)
-        events = get_events()
-        return render_template('event.html', event_id=event_id, event=events[event_id])
+        event = database.get_event(event_id)
+        print(event)
+        return render_template('event.html', event=event)
     else:
         return redirect(url_for('list_events'))
 
 @app.route('/events/create', methods=['GET', 'POST'])
 def create_event():
     if request.method == 'POST':
-        events = get_events()
-        event = {}
-        event['name'] = request.form['name']
-        event['date'] = request.form['date']
-        event['host'] = request.form['host']
-        events.append(event)
-        
-        # Make sure events are sorted by date.
-        events = sorted(events, key=lambda e: e['date'])
-
-        # Write data back out to csv.
-        set_events(events)
+        name = request.form['name']
+        date = request.form['date']
+        host = request.form['host']
+        database.insert_event(name, date, host)
 
         # Return to the list of events.
         return redirect(url_for('list_events'))
@@ -62,30 +55,8 @@ def create_event():
 def delete_event(event_id=None):
     if event_id:
         event_id = int(event_id)
-        events = get_events()
-        del events[event_id]
-        set_events(events)
+        database.delete_event(event_id)
     return redirect(url_for('list_events'))
-
-def get_events():
-    results = []
-    try:
-        with open(EVENTS_PATH) as csv_file:
-            reader = csv.DictReader(csv_file)
-            results = list(reader)
-    except Exception as err:
-        print(err)
-    return results
-
-def set_events(events):
-    try:
-        with open(EVENTS_PATH, mode='w', newline='') as csv_file:
-            writer = csv.DictWriter(csv_file, fieldnames=EVENTS_KEYS)
-            writer.writeheader()
-            for event in events:
-                writer.writerow(event)
-    except Exception as err:
-        print(err)
 
 if __name__ == '__main__':
     app.run(debug = True)
