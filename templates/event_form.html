@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Create a new event</h2>
-<form method="POST" name="create_event" class="container" action="{{ url_for('create_event') }}">
+{% if event is defined %}
+    {% set event_name = event['name'] %}
+    {% set event_date = event['date'] %}
+    {% set event_host = event['host'] %}
+    <h2>Edit event: {{ event_name }}</h2>
+{% else %}
+    {% set event_name = '' %}
+    {% set event_date = '' %}
+    {% set event_host = '' %}
+    <h2>Create a new event</h2>
+{% endif %}
+<form method="POST" name="edit_event" class="container">
     <div class="row my-2">
         <div class="col-md-2 text-end">
             <label for="date">Date:</label>
         </div>
         <div class="col">
-            <input type="date" id="date" name="date" />
+            <input type="date" id="date" name="date" value="{{ event_date }}" />
         </div>
     </div>
     <div class="row my-2">
@@ -16,7 +26,7 @@
             <label for="name">Event Name:</label>
         </div>
         <div class="col">
-            <input type="text" id="name" name="name" size="64" />
+            <input type="text" id="name" name="name" size="64" value="{{ event_name }}" />
         </div>
     </div>
     <div class="row my-2">
@@ -24,7 +34,7 @@
             <label for="host">Host:</label>
         </div>
         <div class="col">
-            <input type="text" id="host" name="host" size="64" />
+            <input type="text" id="host" name="host" size="64" value="{{ event_host }}" />
         </div>
     </div>
     <div class="my-2 text-center">

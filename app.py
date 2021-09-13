@@ -37,17 +37,30 @@ def view_event(event_id=None):
         return redirect(url_for('list_events'))
 
 @app.route('/events/create', methods=['GET', 'POST'])
-def create_event():
+@app.route('/events/<event_id>/edit', methods=['GET', 'POST'])
+def edit_event(event_id=None):
+    if event_id:
+        event_id = int(event_id)
+
     if request.method == 'POST':
+        # Received form data; update the database.
         name = request.form['name']
         date = request.form['date']
         host = request.form['host']
-        database.insert_event(name, date, host)
+        if event_id:
+            database.update_event(event_id, name, date, host)
+        else:
+            database.insert_event(name, date, host)
 
         # Return to the list of events.
         return redirect(url_for('list_events'))
     else:
-        return render_template('create_event.html')
+        # Show the event editing form.
+        if event_id:
+            event = database.get_event(event_id)
+        else:
+            event = None
+        return render_template('event_form.html', event=event)
 
 @app.route('/events/<event_id>/delete')
 def delete_event(event_id=None):
