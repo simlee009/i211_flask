@@ -5,3 +5,5 @@ create table Events (
     host varchar(255),
     primary key (id)
 )
+character set utf8mb4
+collate utf8mb4_unicode_ci
