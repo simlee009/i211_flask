@@ -31,7 +31,8 @@ def view_event(event_id=None):
     if event_id:
         event_id = int(event_id)
         event = database.get_event(event_id)
-        return render_template('event.html', event=event)
+        attendees = database.get_attendees(event_id)
+        return render_template('event.html', event=event, attendees=attendees)
     else:
         return redirect(url_for('list_events'))
 
@@ -54,6 +55,47 @@ def delete_event(event_id=None):
         event_id = int(event_id)
         database.delete_event(event_id)
     return redirect(url_for('list_events'))
+
+@app.route('/events/<event_id>/attendees/add', methods=['GET', 'POST'])
+@app.route('/events/<event_id>/attendees/<attendee_id>/edit', methods=['GET', 'POST'])
+def edit_attendee(event_id=None, attendee_id=None):
+    if event_id:
+        event_id = int(event_id)
+        if attendee_id:
+            attendee_id = int(attendee_id)
+
+        if request.method == 'POST':
+            # Got form data. Send it to the database.
+            name = request.form['name']
+            email = request.form['email']
+            comment = request.form['comment']
+            if attendee_id:
+                database.update_attendee(attendee_id, name, email, comment)
+            else:
+                database.insert_attendee(event_id, name, email, comment)
+            return redirect(url_for('view_event', event_id=event_id))
+        else:
+            # Show the attendee edit form so the user can enter data.
+            event = database.get_event(event_id)
+            event_name = event['name']
+            if attendee_id:
+                attendee = database.get_attendee(attendee_id)
+            else:
+                attendee = None
+            return render_template('attendee_form.html', event_name=event_name, attendee=attendee)
+    else:
+        return redirect(url_for('list_events'))
+
+@app.route('/events/<event_id>/attendees/<attendee_id>/delete')
+def delete_attendee(event_id=None, attendee_id=None):
+    if attendee_id:
+        attendee_id = int(attendee_id)
+        database.delete_attendee(attendee_id)
+    if event_id:
+        event_id = int(event_id)
+        return redirect(url_for('view_event', event_id=event_id))
+    else:
+        return redirect(url_for('list_events'))
 
 if __name__ == '__main__':
     app.run(debug = True)

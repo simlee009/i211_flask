@@ -59,6 +59,14 @@ def get_attendees(event_id):
             cursor.execute(sql, (event_id))
             return cursor.fetchall()
 
+def get_attendee(attendee_id):
+    sql = "select id, event_id, name, email, comment from Attendees where id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (attendee_id))
+            return cursor.fetchone()
+
 def insert_attendee(event_id, name, email, comment):
     sql = "insert into Attendees (event_id, name, email, comment) values (%s, %s, %s, %s)"
     conn = get_connection()
@@ -67,7 +75,7 @@ def insert_attendee(event_id, name, email, comment):
             cursor.execute(sql, (event_id, name, email, comment))
         conn.commit()
 
-def update_attenddee(attendee_id, name, email, comment):
+def update_attendee(attendee_id, name, email, comment):
     sql = "update Attendees set name = %s, email = %s, comment = %s where id = %s"
     conn = get_connection()
     with conn:

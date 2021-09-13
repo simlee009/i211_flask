@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if attendee %}
+    {% set attendee_name = attendee['name'] %}
+    {% set attendee_email = attendee['email'] %}
+    {% set attendee_comment = attendee['comment'] %}
+    <h2>Edit {{ attendee_name }}'s attendee info for: {{ event_name }}</h2>
+{% else %}
+    {% set attendee_name = '' %}
+    {% set attendee_email = '' %}
+    {% set attendee_comment = '' %}
+    <h2>Add an attendee to: {{ event_name }}</h2>
+{% endif %}
+<form method="POST" name="add_attendee" class="container">
+    <div class="row my-2">
+        <div class="col-md-2 text-end">
+            <label for="name">Name:</label>
+        </div>
+        <div class="col">
+            <input type="text" id="name" name="name" value="{{ attendee_name }}" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-2 text-nowrap text-end">
+            <label for="email">Email:</label>
+        </div>
+        <div class="col">
+            <input type="email" id="email" name="email" size="64" value="{{ attendee_email }}" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-2 text-end">
+            <label for="comment">Comment:</label>
+        </div>
+        <div class="col">
+            <textarea id="comment" name="comment" cols="64" rows="4">{{ attendee_comment }}</textarea>
+        </div>
+    </div>
+    <div class="my-2 text-center">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <input type="reset" value="Reset" class="btn btn-secondary" />
+    </div>
+</form>
+{% endblock %}
