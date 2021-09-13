@@ -41,9 +41,44 @@ def update_event(event_id, name, date, host):
         conn.commit()
 
 def delete_event(event_id):
-    sql = "delete from Events where id = %s"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
+            # When deleting an event, delete all attendees first.
+            sql = "delete from Attendees where event_id = %s"
             cursor.execute(sql, event_id)
+            sql = "delete from Events where id = %s"
+            cursor.execute(sql, event_id)
+        conn.commit()
+
+def get_attendees(event_id):
+    sql = "select id, event_id, name, email, comment from Attendees where event_id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (event_id))
+            return cursor.fetchall()
+
+def insert_attendee(event_id, name, email, comment):
+    sql = "insert into Attendees (event_id, name, email, comment) values (%s, %s, %s, %s)"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (event_id, name, email, comment))
+        conn.commit()
+
+def update_attenddee(attendee_id, name, email, comment):
+    sql = "update Attendees set name = %s, email = %s, comment = %s where id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (name, email, comment, attendee_id))
+        conn.commit()
+
+def delete_attendee(attendee_id):
+    sql = "delete from Attendees where id = %s"
+    conn = get_connection()
+    with conn:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, (attendee_id))
         conn.commit()
