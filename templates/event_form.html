@@ -5,11 +5,13 @@
     {% set event_name = event['name'] %}
     {% set event_date = event['date'] %}
     {% set event_host = event['host'] %}
+    {% set event_desc = event['description'] %}
     <h2>Edit event: {{ event_name }}</h2>
 {% else %}
     {% set event_name = '' %}
     {% set event_date = '' %}
     {% set event_host = '' %}
+    {% set event_desc = '' %}
     <h2>Create a new event</h2>
 {% endif %}
 <form method="POST" name="edit_event" class="container">
@@ -35,6 +37,14 @@
         </div>
         <div class="col">
             <input type="text" id="host" name="host" size="64" value="{{ event_host }}" />
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-2 text-end">
+            <label for="host">Description:</label>
+        </div>
+        <div class="col">
+            <textarea id="desc" name="desc" cols="64" rows="5">{{ event_desc }}</textarea>
         </div>
     </div>
     <div class="my-2 text-center">

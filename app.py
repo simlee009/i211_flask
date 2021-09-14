@@ -47,10 +47,11 @@ def edit_event(event_id=None):
         name = request.form['name']
         date = request.form['date']
         host = request.form['host']
+        desc = request.form['desc']
         if event_id:
-            database.update_event(event_id, name, date, host)
+            database.update_event(event_id, name, date, host, desc)
         else:
-            database.insert_event(name, date, host)
+            database.insert_event(name, date, host, desc)
 
         # Return to the list of events.
         return redirect(url_for('list_events'))

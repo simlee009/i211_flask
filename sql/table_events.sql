@@ -3,6 +3,7 @@ create table Events (
     name varchar(255) not null,
     date date not null,
     host varchar(255),
+    description text,
     primary key (id)
 )
 character set utf8mb4
