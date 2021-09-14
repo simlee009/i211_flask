@@ -24,7 +24,7 @@
         <div class="col-6"><strong>Comment:</strong></div>
     </div>
     {% for attendee in attendees %}
-    <div class="row my-2">
+    <div class="row my-2 py-1 bg-light">
         <div class="col-2">{{ attendee['name'] }}</div>
         <div class="col">{{ attendee['email'] }}</div>
         <div class="col-6">{{ attendee['comment']}} </div>
