@@ -9,7 +9,7 @@ def get_connection():
                            cursorclass=pymysql.cursors.DictCursor)
 
 def insert_event(name, date, host, desc):
-    sql = "insert into Events (name, date, host) values (%s, %s, %s, %s)"
+    sql = "insert into Events (name, date, host, description) values (%s, %s, %s, %s)"
     conn = get_connection()
     with conn:
         with conn.cursor() as cursor:
