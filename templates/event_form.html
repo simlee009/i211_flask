@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if event is defined %}
+{% if event %}
     {% set event_name = event['name'] %}
     {% set event_date = event['date'] %}
     {% set event_host = event['host'] %}
